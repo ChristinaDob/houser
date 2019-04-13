@@ -1,0 +1,38 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { updateStepThree } from '../../ducks/reducer';
+
+class WizardThree extends Component {
+  addHouse = () => {
+    let { name, address, city, state, zip } = this.state;
+    axios
+      .post('/api/houses', { name, address, city, state, zip })
+      .then(response => {});
+  };
+  render() {
+    return (
+      <div>
+        <div>
+          Mortgage:
+          <input onChange={e => this.props.updateStepThree(e.target.value)} />
+        </div>
+        <div>
+          Rent:
+          <input onChange={e => this.props.updateStepThree(e.target.value)} />
+        </div>
+        <button onClick={this.addHouse}>Add House to DB</button>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  const { name, address, city, province, zip, img, mortgage, rent } = state;
+  return mortgage, rent;
+}
+
+export default connect(
+  mapStateToProps,
+  { updateStepThree }
+)(WizardThree);
